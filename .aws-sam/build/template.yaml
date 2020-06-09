@@ -1,25 +1,24 @@
-AWSTemplateFormatVersion: "2010-09-09"
+AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: >
-  TodoListApi
+Description: 'TodoListApi
 
   Sample SAM Template for TodoListApi
 
+  '
 Globals:
   Function:
     Timeout: 3
-
 Resources:
   ItemsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: api/
+      CodeUri: ItemsFunction
       Handler: app.lambdaHandler
       Runtime: nodejs12.x
       Policies: AmazonDynamoDBFullAccess
       Environment:
         Variables:
-          DYNAMODB_ENDPOINT: ""
+          DYNAMODB_ENDPOINT: ''
       Events:
         GetItems:
           Type: Api
@@ -51,23 +50,30 @@ Resources:
     Properties:
       BillingMode: PAY_PER_REQUEST
       AttributeDefinitions:
-        - AttributeName: UserId
-          AttributeType: S
-        - AttributeName: ItemId
-          AttributeType: N
+      - AttributeName: UserId
+        AttributeType: S
+      - AttributeName: ItemId
+        AttributeType: N
       KeySchema:
-        - AttributeName: UserId
-          KeyType: HASH
-        - AttributeName: ItemId
-          KeyType: RANGE
+      - AttributeName: UserId
+        KeyType: HASH
+      - AttributeName: ItemId
+        KeyType: RANGE
       TableName: Item
 Outputs:
   ItemsApi:
-    Description: "API Gateway endpoint URL for Prod stage for Items function"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/api/"
+    Description: API Gateway endpoint URL for Prod stage for Items function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/api/
   ItemsFunction:
-    Description: "Items Lambda Function ARN"
-    Value: !GetAtt ItemsFunction.Arn
+    Description: Items Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - ItemsFunction
+      - Arn
   ItemsFunctionIamRole:
-    Description: "Implicit IAM Role created for Items function"
-    Value: !GetAtt ItemsFunctionRole.Arn
+    Description: Implicit IAM Role created for Items function
+    Value:
+      Fn::GetAtt:
+      - ItemsFunctionRole
+      - Arn

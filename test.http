@@ -1,3 +1,14 @@
-PUT https://xjalepo5f0.execute-api.ap-northeast-1.amazonaws.com/Stage/items HTTP/1.1
+POST https://ztal5khbqf.execute-api.ap-northeast-1.amazonaws.com/Stage/items HTTP/1.1
 
-{}
+{ "ItemId": 1, "UserId": "User1", "Name": "猫にご飯をあげる"}
+
+###
+GET https://ztal5khbqf.execute-api.ap-northeast-1.amazonaws.com/Stage/items/ HTTP/1.1
+
+###
+PUT https://ztal5khbqf.execute-api.ap-northeast-1.amazonaws.com/Stage/items HTTP/1.1
+
+{ "ItemId": 2, "UserId": "User1", "Name": "猫じゃらしを使って運動させる"}
+
+###
+DELETE https://ztal5khbqf.execute-api.ap-northeast-1.amazonaws.com/Stage/items/1 HTTP/1.1
